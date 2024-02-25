@@ -1,9 +1,8 @@
-import Todo from "./components/todo";
+import Forms from "./components/forms";
 function App() {
   return (
     <div className="App">
-        <h2>TODO APPLICATION</h2>
-         <Todo/>
+        <Forms/>
     </div>
   );
 }
