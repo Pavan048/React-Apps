@@ -1,10 +1,9 @@
-import HideShow from "./components/hideShow";
-import Form from "./components/forms";
+import "./index.css";
+import Cocktail from "./components/Cocktail";
 function App() {
   return (
     <div className="App">
-       <HideShow/>
-       <Form/>
+     <Cocktail/>
     </div>
   );
 }

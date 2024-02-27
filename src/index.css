@@ -11,3 +11,25 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.cocktail-data{
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.cocktail-data li img{
+  width: 100%;
+}
+.cocktail-data li {
+  list-style-type: none;
+}
+@media screen and (min-width: 769px) {
+  .cocktail-data{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 2rem;
+    
+  }
+  
+}
