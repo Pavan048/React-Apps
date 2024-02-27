@@ -1,9 +1,10 @@
-import "./index.css";
-import Cocktail from "./components/Cocktail";
+
+import ParentComponent from "./components/PropDrlling"; 
 function App() {
+
   return (
     <div className="App">
-     <Cocktail/>
+     <ParentComponent />
     </div>
   );
 }
