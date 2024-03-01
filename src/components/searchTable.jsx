@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 
 const SearchTable = ({ Data }) => {
-  const [data, setData] = useState(Data);
+  const [data, setData] = useState(Data); // All data
   const [searchTerm, setSearchTerm] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(20);
 
   const handleSearch = (e) => {
     const searchTerm = e.target.value;
@@ -13,7 +15,22 @@ const SearchTable = ({ Data }) => {
         item.location.toLowerCase().includes(searchTerm.toLowerCase())
     );
     setData(filteredData);
+    setCurrentPage(1); // Reset to first page after filtering
   };
+
+  // Logic to get current items based on pagination
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = data.slice(indexOfFirstItem, indexOfLastItem);
+
+  // Logic to paginate
+  const pageNumbers = [];
+  for (let i = 1; i <= Math.ceil(data.length / itemsPerPage); i++) {
+    pageNumbers.push(i);
+  }
+
+  // Function to change page
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
     <div>
@@ -28,7 +45,7 @@ const SearchTable = ({ Data }) => {
         </form>
       </div>
       <div style={{ overflowX: 'auto' }}>
-        {data.length > 0 ? (
+        {currentItems.length > 0 ? (
           <table className='table'>
             <thead>
               <tr>
@@ -42,7 +59,7 @@ const SearchTable = ({ Data }) => {
               </tr>
             </thead>
             <tbody>
-              {data.map((item, index) => (
+              {currentItems.map((item, index) => (
                 <tr key={index}>
                   <td>{item.sno}</td>
                   <td>{item.customer_name}</td>
@@ -58,6 +75,24 @@ const SearchTable = ({ Data }) => {
         ) : (
           <p>No matching records found.</p>
         )}
+        {/* Pagination buttons */}
+        <div>
+          <button onClick={() => paginate(currentPage - 1)} disabled={currentPage === 1}>
+            Previous
+          </button>
+          <div>
+            {pageNumbers.map((number) => (
+              <button key={number} onClick={() => paginate(number)}>
+                {number}
+              </button>
+            ))}
+          </div>
+          <button
+            onClick={() => paginate(currentPage + 1)}
+            disabled={currentPage === Math.ceil(data.length / itemsPerPage)}>
+            Next
+          </button>
+        </div>
       </div>
     </div>
   );
