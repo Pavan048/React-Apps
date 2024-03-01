@@ -13,53 +13,14 @@ code {
 }
 
 
-/* Style for form */
-form {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-/* Style for input */
-input[type='text'] {
-  padding: 0.6rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 1rem;
-  width: 100%;
-  max-width: 300px; /* Adjust max-width as needed */
-  margin-top: 30px;
-}
-
-/* Placeholder style */
-input[type='text']::placeholder {
-  color: #999;
-}
-
-/* Optional: Style for input on focus */
-input[type='text']:focus {
-  outline: none;
-  border-color: #007bff; /* Example color */
-}
-
-.cocktail-data{
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.cocktail-data li img{
+table {
+  border-collapse: collapse;
   width: 100%;
 }
-.cocktail-data li {
-  list-style-type: none;
+
+th, td {
+  text-align: left;
+  padding: 8px;
 }
-@media screen and (min-width: 769px) {
-  .cocktail-data{
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    gap: 2rem;
-    
-  }
-  
-}
+
+tr:nth-child(even) {background-color: #f2f2f2;}

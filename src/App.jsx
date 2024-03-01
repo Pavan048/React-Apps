@@ -1,10 +1,10 @@
-
-import ParentComponent from "./components/PropDrlling"; 
+import SearchTable from "./components/searchTable";
+import {Data} from "./data.js";
 function App() {
 
   return (
     <div className="App">
-     <ParentComponent />
+    <SearchTable Data = {Data}/>
     </div>
   );
 }
