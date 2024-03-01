@@ -5,6 +5,7 @@ const SearchTable = ({ Data }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(20);
+  const [sortType, setSortType] = useState('date');
 
   const handleSearch = (e) => {
     const searchTerm = e.target.value;
@@ -16,6 +17,17 @@ const SearchTable = ({ Data }) => {
     );
     setData(filteredData);
     setCurrentPage(1); // Reset to first page after filtering
+  };
+
+  const handleSort = (type) => {
+    const sortedData = [...data];
+    if (type === 'date') {
+      sortedData.sort((a, b) => new Date(a.created_date) - new Date(b.created_date));
+    } else if (type === 'time') {
+      sortedData.sort((a, b) => new Date('1970/01/01 ' + a.created_time) - new Date('1970/01/01 ' + b.created_time));
+    }
+    setData(sortedData);
+    setSortType(type);
   };
 
   // Logic to get current items based on pagination
@@ -45,6 +57,10 @@ const SearchTable = ({ Data }) => {
         </form>
       </div>
       <div style={{ overflowX: 'auto' }}>
+        <div>
+          <button onClick={() => handleSort('date')}>Sort by Date</button>
+          <button onClick={() => handleSort('time')}>Sort by Time</button>
+        </div>
         {currentItems.length > 0 ? (
           <table className='table'>
             <thead>
