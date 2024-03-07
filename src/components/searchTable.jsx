@@ -1,7 +1,8 @@
+
 import React, { useState } from 'react';
 
 const SearchTable = ({ Data }) => {
-  const [data, setData] = useState(Data); // All data
+  const [data, setData] = useState(Data);
   const [searchTerm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(20);
@@ -16,7 +17,7 @@ const SearchTable = ({ Data }) => {
         item.location.toLowerCase().includes(searchTerm.toLowerCase())
     );
     setData(filteredData);
-    setCurrentPage(1); // Reset to first page after filtering
+    setCurrentPage(1);
   };
 
   const handleSort = (type) => {
@@ -30,23 +31,20 @@ const SearchTable = ({ Data }) => {
     setSortType(type);
   };
 
-  // Logic to get current items based on pagination
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = data.slice(indexOfFirstItem, indexOfLastItem);
 
-  // Logic to paginate
   const pageNumbers = [];
   for (let i = 1; i <= Math.ceil(data.length / itemsPerPage); i++) {
     pageNumbers.push(i);
   }
 
-  // Function to change page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
-    <div>
-      <div>
+    <div className="search-table-container">
+      <div className="search-container">
         <form>
           <input
             type='text'
@@ -56,24 +54,27 @@ const SearchTable = ({ Data }) => {
           />
         </form>
       </div>
-      <div style={{ overflowX: 'auto' }}>
-        <div>
+      <div className="table-container">
+        <div className="sort-buttons">
           <button onClick={() => handleSort('date')}>Sort by Date</button>
           <button onClick={() => handleSort('time')}>Sort by Time</button>
         </div>
         {currentItems.length > 0 ? (
           <table className='table'>
-            <thead>
-              <tr>
-                <th>sno</th>
-                <th>customer_name</th>
-                <th>age</th>
-                <th>phone</th>
-                <th>location</th>
-                <th>created_date</th>
-                <th>created_time</th>
-              </tr>
-            </thead>
+          <thead>
+            <tr>
+                <th rowspan="2">Sno</th>
+                <th rowspan="2">Name</th>
+                <th rowspan="2">Location</th>
+                <th rowspan="2">Number</th>
+                <th rowspan="2">Age</th>
+                <th colspan="2">Created At</th>
+            </tr>
+            <tr>
+                <th>Date</th>
+                <th>Time</th>
+            </tr>
+        </thead>
             <tbody>
               {currentItems.map((item, index) => (
                 <tr key={index}>
@@ -82,7 +83,7 @@ const SearchTable = ({ Data }) => {
                   <td>{item.age}</td>
                   <td>{item.phone}</td>
                   <td>{item.location}</td>
-                  <td>{item.created_date}</td>
+                  <td>{new Date(item.created_date).toLocaleDateString()}</td>
                   <td>{item.created_time}</td>
                 </tr>
               ))}
@@ -91,8 +92,7 @@ const SearchTable = ({ Data }) => {
         ) : (
           <p>No matching records found.</p>
         )}
-        {/* Pagination buttons */}
-        <div>
+        <div className="pagination">
           <button onClick={() => paginate(currentPage - 1)} disabled={currentPage === 1}>
             Previous
           </button>

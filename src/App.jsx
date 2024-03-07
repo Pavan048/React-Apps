@@ -1,10 +1,13 @@
-import SearchTable from "./components/searchTable";
-import {Data} from "./data.js";
+import React from 'react';
+import MemoComponent from './components/MemoComponent';
+
 function App() {
 
   return (
     <div className="App">
-    <SearchTable Data = {Data}/>
+      
+     <MemoComponent/>
+   
     </div>
   );
 }
